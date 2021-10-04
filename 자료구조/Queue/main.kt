@@ -7,6 +7,7 @@ fun main (){
         println(dequeue())
         println(dequeue())
 
+
     }
 }
 
