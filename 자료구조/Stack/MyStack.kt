@@ -16,6 +16,7 @@ class MyStack <T>{
         stack.add(data)
     }
 
+
     fun pop():T?{
        if (stack.isEmpty()){
            return null
