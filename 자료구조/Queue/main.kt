@@ -7,7 +7,6 @@ fun main (){
         println(dequeue())
         println(dequeue())
 
-
     }
 }
 
@@ -17,8 +16,6 @@ class MyQueue<T>{
     fun enqueue(item : T){
         queue.add(item)
     }
-
-
     fun dequeue():T{
         return queue.removeAt(0)
     }
