@@ -7,13 +7,13 @@ fun main(){
     graph["B"] = mutableListOf("A", "D")
     graph["C"] = mutableListOf("A", "G", "H", "I")
     graph["D"] = mutableListOf("B", "E", "F")
+
     graph["E"] = mutableListOf("D")
     graph["F"] = mutableListOf("D")
     graph["G"] = mutableListOf("C")
     graph["H"] = mutableListOf("C")
     graph["I"] = mutableListOf("C", "J")
     graph["J"] = mutableListOf("I")
-
     print(DfsSearch().dfsFunc(graph,"A"))
 
 }
