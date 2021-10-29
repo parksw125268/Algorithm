@@ -8,6 +8,7 @@ fun main () {
         mList.add(Random().nextInt(100))
     }
     println(mList)
+
     println(MergeSort().merge(mList)) //mergesort
 }
 
