@@ -7,7 +7,6 @@ fun main(){
     heap1.dataInsert(20)
     heap1.dataInsert(21)
     heap1.dataInsert(3)
-    heap1.dataInsert(24)
     heap1.dataInsert(12)
     heap1.dataInsert(55)
     heap1.dataInsert(25)
