@@ -25,6 +25,7 @@ public class MyHeap {
             heapList.set(childIdx, heapList.get(parentIdx));
             heapList.set(parentIdx, a);
             childIdx = childIdx/2;
+            parentIdx = childIdx/2;
         }
     }
     public void insertData(Integer data){
@@ -53,39 +54,40 @@ public class MyHeap {
         }
         int result;
         result = heapList.get(1);
-        heapList.set(1,heapList.remove(heapList.size()-1));
+        heapList.set(1,heapList.get(heapList.size()-1));
+        heapList.remove(heapList.size()-1);
 
         int parentIdx = 1;
+        int childIdx ;
         while(hasChild(parentIdx)){
-            if (parentIdx*2+1 == heapList.size()-1){
+            if (parentIdx*2+1 <= heapList.size()-1){
                 //왼쪽 오른쪽 둘다 있는경우
-                if (heapList.get(parentIdx*2) > heapList.get(parentIdx)){
+                if(heapList.get(parentIdx*2) > heapList.get(parentIdx*2+1)){ //왼쪽 오른쪽 자식비교
+                    childIdx = parentIdx*2;//왼쪽이 더 큰경우
+                }else{
+                    childIdx = parentIdx*2+1;//오른쪽이 더 큰경우
+                }
+
+                if (heapList.get(childIdx) > heapList.get(parentIdx)){//자식이 더 크면 바꿔줌
                     //왼쪽 자식이 더 큰 경우
                     int a;
                     a = heapList.get(parentIdx);
-                    heapList.set(parentIdx, heapList.get(parentIdx*2));
-                    heapList.set(parentIdx*2,a);
-                    parentIdx = parentIdx*2;
-                }else if(heapList.get(parentIdx*2+1) > heapList.get(parentIdx)){
-                    //오른쪽 자식이 더 큰경우
-                    int a;
-                    a = heapList.get(parentIdx);
-                    heapList.set(parentIdx, heapList.get(parentIdx*2+1));
-                    heapList.set(parentIdx*2+1,a);
-                    parentIdx = parentIdx*2+1;
-                }else{
-                    //바꿀 필요가 없음.
+                    heapList.set(parentIdx, heapList.get(childIdx));
+                    heapList.set(childIdx,a);
+                    parentIdx = childIdx;
+                }else{//바꿀 필요가 없음.
                     break;
                 }
             }else{
                 //왼쪽만 있는경우
-                if (heapList.get(parentIdx*2) > heapList.get(parentIdx)){
+                childIdx = parentIdx*2;
+                if (heapList.get(childIdx) > heapList.get(parentIdx)){
                     //왼쪽 자식이 더 큰 경우
                     int a;
                     a = heapList.get(parentIdx);
-                    heapList.set(parentIdx, heapList.get(parentIdx*2));
-                    heapList.set(parentIdx*2,a);
-                    parentIdx = parentIdx*2;
+                    heapList.set(parentIdx, heapList.get(childIdx));
+                    heapList.set(childIdx,a);
+                    parentIdx = childIdx;
                 }else{
                     //바꿀 필요 없음.
                     break;
@@ -100,11 +102,17 @@ public class MyHeap {
     public static void main(String[] args) {
         MyHeap myHeap = new MyHeap();
         myHeap.insertData(20);
+        myHeap.printFunc();
         myHeap.insertData(21);
+        myHeap.printFunc();
         myHeap.insertData(13);
+        myHeap.printFunc();
         myHeap.insertData(2);
+        myHeap.printFunc();
         myHeap.insertData(47);
+        myHeap.printFunc();
         myHeap.insertData(22);
+        myHeap.printFunc();
         myHeap.insertData(23);
         myHeap.printFunc();
         System.out.println(myHeap.pop());
