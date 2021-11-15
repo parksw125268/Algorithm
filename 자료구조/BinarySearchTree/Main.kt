@@ -17,10 +17,16 @@ fun main(){
         insertData(2)
         insertData(7)
         insertData(4)
-        println(popData(3))
-        println(head!!.lNode!!.value) //2
-        println(head!!.lNode!!.lNode) //null
-        println(head!!.lNode!!.rNode!!.value) //4
+        popData(5)
+        popData(4)
+        popData(3)
+        popData(2)
+        popData(7)
+        println(head!!.value)
+        println(head!!.lNode)
+        println(head!!.rNode)
+        popData(8)
+        println(head)
     }
 }
 
@@ -100,9 +106,12 @@ class BinarySearchTree {
             if (fNode.lNode!!.rNode == null){
                 if(pSide == "left"){
                     pNode!!.lNode = fNode.lNode
+                    pNode.lNode!!.rNode = fNode.rNode
                 }else if( pSide == "right"){
                     pNode!!.rNode = fNode.lNode
+                    pNode.rNode!!.rNode = fNode.rNode
                 }else{
+                    head!!.lNode!!.rNode = head!!.rNode
                     head = fNode.lNode
                 }
                 return inputValue
@@ -124,9 +133,9 @@ class BinarySearchTree {
         // 만약 side 가 null이면 head이므로 head = tNode, tNode.left = head.left, tNode.right = head.right
         // 아니라면 pNode에 붙여줘야함. pNode.side = tNode, tNode.left = fNode.left, tNode.right = fNode.right
         if(pSide == null){
-            head = tNode
             tNode.lNode = head!!.lNode
             tNode.rNode = head!!.rNode
+            head = tNode
         }else{
             if (pSide == "left"){
                 pNode!!.lNode = tNode
