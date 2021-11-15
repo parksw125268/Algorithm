@@ -1,7 +1,7 @@
 
 fun main(){
     val bst = BinarySearchTree().apply {
-        insertData(5)
+        { insertData(5)
         println( head!!.value )
         insertData(8)
         println( head!!.rNode!!.value )
@@ -10,7 +10,17 @@ fun main(){
         insertData(2)
         println( head!!.lNode!!.lNode!!.value )
         insertData(7)
-        println( head!!.rNode!!.lNode!!.value )
+        println( head!!.rNode!!.lNode!!.value )}
+        insertData(5)
+        insertData(8)
+        insertData(3)
+        insertData(2)
+        insertData(7)
+        insertData(4)
+        println(popData(3))
+        println(head!!.lNode!!.value) //2
+        println(head!!.lNode!!.lNode) //null
+        println(head!!.lNode!!.rNode!!.value) //4
     }
 }
 
@@ -54,69 +64,79 @@ class BinarySearchTree {
             }
         }
     }
-    fun popData(inputValue : Int) : Int?{
-        if(this.head == null){ //트리에 아무것도 없음.
+    fun popData(inputValue : Int) : Int?{ // todo 처음 찾은 노득가 head인 경우 도 생각
+        if (this.head == null)
             return null
-        }
         var pNode : Node? = null
-        var fNode = head
-        var side  : String? = null
+        var pSide : String? = null
+        var fNode = this.head
 
-        while(true){
-            if(fNode!!.value == inputValue){
-                break
-            }else{
-                // inputValue가 더 작음
-                if(fNode.value!! > inputValue){
-                    if (fNode.lNode == null){
-                        return null
-                    }else{
-                        pNode = fNode
-                        side = "left"
-                        fNode = fNode.lNode
-                    }
-                }else{
-                    if(fNode.rNode == null){
-                        return null
-                    }else{
-                        pNode = fNode
-                        side = "right"
-                        fNode = fNode.rNode
-                    }
+        while (fNode!!.value!! != inputValue){
+            if(fNode.value!! > inputValue) {//왼쪽에 있음.
+                if (fNode.lNode == null) {//왼쪽노드가 없음.
+                    return null
                 }
-            }
-        }
-        //찾는 Node와 찾은 Node의 pNode와 pNode에 왼쪽인지 오른쪽인지를 가지고 있음.
-        if(side == null){//헤드가 바로 찾던 Data 인 경우.
-            val result = head!!.value
-            head = null
-            return result
-        }
-        val result = fNode!!.value
-        //찾은 노드에 왼쪽 노드가 없는경우(간단)
-        if(fNode.lNode == null){
-            if (side == "left"){
-                pNode!!.lNode = fNode.rNode
+                pSide = "left"
             }else{
-                pNode!!.rNode = fNode.rNode
+                if(fNode.rNode == null){
+                    return null
+                }
+                pSide = "right"
             }
-            return result
+            pNode = fNode
+            fNode = fNode.lNode
         }
-        //찾은 노드에 왼쪽값이 있는경우. 그 왼쪽노드에 가장 오른쪽 노드를 찾아야됨(최대값)
-        var temNode = fNode.lNode
-        var temParentNode = fNode
-        while(true){
-            if(temNode!!.rNode == null)
-                break
-            temParentNode = temNode
-            temNode = temNode.rNode
+        //1. 찾은 노드에 left가 null인경우, 그 부모에 side에 fNode에 right를 넣는다.
+        if(fNode.lNode == null){
+            if (pSide == "left"){
+                pNode!!.lNode = fNode.rNode
+            }else if (pSide == "right"){
+                pNode!!.rNode = fNode.rNode
+            }else{
+                head = fNode.rNode
+            }
+            return inputValue
+        }else { //2. fNode에 left에 right가 null인경우 -> pNode.side = fNode.left
+            if (fNode.lNode!!.rNode == null){
+                if(pSide == "left"){
+                    pNode!!.lNode = fNode.lNode
+                }else if( pSide == "right"){
+                    pNode!!.rNode = fNode.lNode
+                }else{
+                    head = fNode.lNode
+                }
+                return inputValue
+            }
         }
-        //찾은 노드의 왼쪽값의 가장 오른쪽끝 값(최대값)에
-        //1. 왼쪽 노드가 없는경우
+        var tpNode = fNode.lNode//<==
+        var tNode = tpNode!!.rNode
+        while(tNode!!.rNode != null){
+            tpNode = tNode
+            tNode = tNode.rNode
+        }
 
-
-        //2. 왼쪽 노드가 있는경우
-
+        //맨마지막 가지 잘라내서 pop한 자리에 넣기
+        if(tNode.lNode == null){   //3. tNode.left가 null -> tpNode.rnode = null
+            tpNode!!.rNode = null
+        }else{                     //4. tNode.left가 null이 아닌경우  -> tpNode.rnode = tNode.left
+            tpNode!!.rNode = tNode.lNode
+        }
+        // 만약 side 가 null이면 head이므로 head = tNode, tNode.left = head.left, tNode.right = head.right
+        // 아니라면 pNode에 붙여줘야함. pNode.side = tNode, tNode.left = fNode.left, tNode.right = fNode.right
+        if(pSide == null){
+            head = tNode
+            tNode.lNode = head!!.lNode
+            tNode.rNode = head!!.rNode
+        }else{
+            if (pSide == "left"){
+                pNode!!.lNode = tNode
+            }else{
+                pNode!!.rNode = tNode
+            }
+            tNode.lNode = fNode.lNode
+            tNode.rNode = fNode.rNode
+        }
+        return inputValue
     }
 
 
