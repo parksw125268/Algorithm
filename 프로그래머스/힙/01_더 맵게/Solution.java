@@ -8,28 +8,17 @@ class Solution {
         for(int i=0; i<leng; i++){
             mh.inputData(scoville[i]);
         }
-        int a = mh.popData(); //제일 안 매운애
-        int b = mh.popData(); //두번째로 안 매운애
-        while(a >= 0 && b >= 0){
-            if(a>=K){
-                return answer;
-            }
-            int c = a + (b*2);//섞기
-            mh.inputData(c); //섞은것 다시 넣기
-            answer++;
-            //다시 뽑기
-            a = mh.popData();
-            b = mh.popData();
+        // 힙에는 문제가 없음.
+        //다음 로직을 잘짜야됨.
 
-        }
-        if (b == -1 && a>=K){ //1개 남은것을 뽑으면 b에 -1이 들어있음.
-            return answer;
-        }else{
-            return -1;
-        }
+        /*for(int i=0; i<leng; i++){
+            System.out.println(mh.popData());
+        }*/
+        return answer;
+
     }
 
-    class MyHeap{
+     static class MyHeap{
         ArrayList<Integer> heapList = new ArrayList<>();
 
         public void inputData(int data){
@@ -54,46 +43,58 @@ class Solution {
         }
 
         public int popData(){
-            if(this.heapList.size() <= 1){
+            if(this.heapList.size()<=1){
                 return -1;
             }
-            int pop = this.heapList.get(1);
-            this.heapList.set(1,this.heapList.remove(this.heapList.size()-1));
+            int popNum = heapList.get(1);
+            if (this.heapList.size() == 2){
+                return this.heapList.remove(1);
+            }
+            heapList.set(1, heapList.remove(heapList.size()-1));
+
             int pIdx = 1;
             int cIdx ;
+
             while(hasChild(pIdx)){
-                if(this.heapList.size()-1 < pIdx*2+1){ //1.자식이 왼쪽에만 있는경우
+                if(this.heapList.size()-1 < pIdx*2+1){//1. 왼쪽만 있는경우,
                     cIdx = pIdx*2;
-                }else{                              //2.자식이 오른쪽에도 있는경우
-                    if(this.heapList.get(pIdx*2)<this.heapList.get(pIdx*2+1)){
-                        cIdx= pIdx*2;
-                    }else{
-                        cIdx= pIdx*2+1;
+                    if(this.heapList.get(cIdx) < this.heapList.get(pIdx)){
+                        swapPosition(cIdx,pIdx);
                     }
-                }
-                if(this.heapList.get(cIdx) < this.heapList.get(pIdx)){
-                    int a = heapList.get(cIdx);
-                    this.heapList.set(cIdx, this.heapList.get(pIdx));
-                    this.heapList.set(pIdx, a);
+                    return popNum;
+                }else{ // 2.둘다 있는경우
+                    if(this.heapList.get(pIdx*2) < this.heapList.get(pIdx*2+1)){ //왼쪽이 더 작은 경우
+                        cIdx = pIdx * 2 ;
+                    }else{  //오른쪽이  더 작은경우
+                        cIdx = pIdx * 2 + 1;
+                    }
+                    if(this.heapList.get(cIdx) < this.heapList.get(pIdx)){
+                        swapPosition(cIdx,pIdx);
+                    }
                     pIdx = cIdx;
-                    continue;
                 }
-                return pop;
             }
-            return pop;
+            return popNum;
         }
+
         private boolean hasChild(int pIdx){
             if(this.heapList.size()-1 < pIdx*2){
                 return false;
             }
             return true;
         }
+
+        private void swapPosition(int cIdx, int pIdx){
+            int a = this.heapList.get(pIdx);
+            this.heapList.set(pIdx, heapList.get(cIdx));
+            this.heapList.set(cIdx, a);
+        }
     }
 
     public static void main(String[] args) {
         Solution s = new Solution();
-        int[] a = new int[]{1,2,3,9,10,12};
-        System.out.println(s.solution(a ,7));
+        int[] a = new int[]{15,9,10,121,2,3,9,10,12,1,2,3};
+        s.solution(a ,7);
 
     }
 }
