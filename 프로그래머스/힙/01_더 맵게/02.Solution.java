@@ -8,12 +8,19 @@ class Solution {
         for(int i=0; i<leng; i++){
             mh.inputData(scoville[i]);
         }
-        // 힙에는 문제가 없음.
-        //다음 로직을 잘짜야됨.
 
-        /*for(int i=0; i<leng; i++){
-            System.out.println(mh.popData());
-        }*/
+        int a = mh.popData();
+        int b = mh.popData();
+        while(a<K){
+            if(b==-1){
+                return -1;
+            }
+            int c = a + b * 2;
+            mh.inputData(c);
+            answer++; //1
+            a= mh.popData();
+            b= mh.popData();
+        }
         return answer;
 
     }
@@ -22,7 +29,8 @@ class Solution {
         ArrayList<Integer> heapList = new ArrayList<>();
 
         public void inputData(int data){
-            if(this.heapList.size() == 0){
+            if(this.heapList.size() <= 1){
+                this.heapList.clear();
                 this.heapList.add(null);
                 this.heapList.add(data);
                 return;
@@ -91,10 +99,10 @@ class Solution {
         }
     }
 
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         Solution s = new Solution();
-        int[] a = new int[]{15,9,10,121,2,3,9,10,12,1,2,3};
-        s.solution(a ,7);
+        int[] a = new int[]{1,3};
+        System.out.println(s.solution(a ,7));
 
-    }
+    }*/
 }
