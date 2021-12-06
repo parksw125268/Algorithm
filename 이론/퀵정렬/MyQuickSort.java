@@ -1,38 +1,39 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Random;
-
 public class MyQuickSort {
-    public ArrayList<Integer> qSort(ArrayList<Integer> dataList){
-        if (dataList.size() < 2)
-            return dataList;
-        Integer pivot = dataList.get(0);
-        ArrayList<Integer> lList = new ArrayList<>();
-        ArrayList<Integer> rList = new ArrayList<>();
-        for(int i=1;i<dataList.size();i++){
-            if(dataList.get(i)<pivot){
-                lList.add(dataList.get(i));
+    public ArrayList<Integer> sort(ArrayList<Integer> aList){
+        if (aList.size() <= 1){
+            return aList;
+        }
+        //1.pivot을 정하고 왼쪽 오른쪽 분류한다.
+        //2.왼쪽 오른쪽 분류한것을 정렬한다(재귀)
+        //3.합치고 return하낟.
+        //======== start ============
+        int pivot = aList.get(0); //-------------------------------------- 1.
+        ArrayList<Integer> left = new ArrayList<>();
+        ArrayList<Integer> right = new ArrayList<>();
+        for(int i=1;i<aList.size();i++){
+            if(aList.get(i)<pivot){
+                left.add(aList.get(i));
             }else{
-                rList.add(dataList.get(i));
+                right.add(aList.get(i));
             }
         }
+        //-------------------------------------- 2,3
         ArrayList<Integer> resultList = new ArrayList<>();
-        resultList.addAll(this.qSort(lList));
+        resultList.addAll(this.sort(left));//재귀
         resultList.add(pivot);
-        resultList.addAll(this.qSort(rList));
+        resultList.addAll(this.sort(right));
         return resultList;
     }
 
     public static void main(String[] args){
-
-            ArrayList<Integer> dataList = new ArrayList<>();
-            for (int i = 0; i < 10; i++) {
-                dataList.add(new Random().nextInt(100));
-            }
-            System.out.println(dataList);
-            System.out.println(new MyQuickSort().qSort(dataList));
-
-
+        ArrayList<Integer> testData = new ArrayList<>();
+        for (int i=0; i<100;i++){
+            testData.add((int)(Math.random()*100));
+        }
+        MyQuickSort mq = new MyQuickSort();
+        System.out.println(testData);
+        System.out.println();
+        System.out.println(mq.sort(testData));
     }
-
 }
