@@ -42,6 +42,9 @@ public class Main {
             Integer targetDist;
             while(pq.size()>0){
                 currNode = pq.poll();//현재 뽑은 노드
+                if(currNode.distance > this.hashDistance.get(currNode.vertex)){
+                    continue;
+                }
                 ArrayList<Node> arrayListTargets = this.hashGraph.get(currNode.vertex);
                 for(int i=0;i<arrayListTargets.size();i++){
                     targetNode = arrayListTargets.get(i);
