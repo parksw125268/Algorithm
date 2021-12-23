@@ -29,34 +29,30 @@ public class Main {
         }
         order = new int[n-1];
     }
-    static int calc(){
-        int value = nums[0];
-        for (int i=0;i<n-1;i++){
-            if (order[i] == 0){//+
-                value += nums[i+1] ;
-            } else if (order[i] == 1){//-
-                value -= nums[i+1] ;
-            } else if (order[i] == 2){//*
-                value *= nums[i+1] ;
-            } else if (order[i] == 3){// /
-                value /= nums[i+1] ;
-            }
+    static int calc(int left, int operator, int right ){
+        if (operator == 0){//+
+            return left + right;
+        } else if (operator == 1){//-
+            return left - right;
+        } else if (operator == 2){//*
+            return left * right;
+        } else {// /
+            return left / right;
         }
-        return value;
     }
-    static void work(int idx){
+    static void work(int idx,int result){
         if(idx == n-1){
             //출력
-            int value =  calc();
-            max = Math.max(max, value);
-            min = Math.min(min, value);
+            max = Math.max(max, result);
+            min = Math.min(min, result);
         }else{
             //계산
             for(int i=0;i<4;i++){
                 if(operators[i] != 0){
                     operators[i]--;
                     order[idx] = i;
-                    work(idx+1);
+
+                    work(idx+1, calc(result, order[idx] ,nums[idx+1]));
                     operators[i]++;
                 }
             }
@@ -65,7 +61,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         input();
-        work(0);
+        work(0, nums[0]);
         sb.append(max + "\n");
         sb.append(min);
 
