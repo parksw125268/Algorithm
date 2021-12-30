@@ -20,7 +20,7 @@ class Solution {
             if (sosu > 1){
                 //sosuNum 이 소수인지 체크
                 int cnt = 0;
-                for (int i=2;i<sosu;i++){
+                for (int i=2;i<=Math.sqrt(sosu);i++){
                     if(sosu%i == 0){
                         cnt++;
                     }
