@@ -19,6 +19,7 @@ public class Main {
         for(int i=0;i<n;i++){
             st = new StringTokenizer(br.readLine());
             name = st.nextToken();
+
             p1 = Integer.parseInt(st.nextToken());
             p2 = Integer.parseInt(st.nextToken());
             p3 = Integer.parseInt(st.nextToken());
