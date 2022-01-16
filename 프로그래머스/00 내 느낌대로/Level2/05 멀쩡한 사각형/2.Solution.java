@@ -1,4 +1,5 @@
 import java.util.*;
+
 class Solution {
     public long solution(double w, double h) {
         long answer = 0;
