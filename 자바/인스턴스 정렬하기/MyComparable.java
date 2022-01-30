@@ -11,6 +11,7 @@ public class MyComparable {
         Point e = new Point(2);
         Point f = new Point(3);
 
+
         Point[] p = {a,b,c,d,e,f};
         Arrays.sort(p);
         for (int i=0;i<p.length;i++){
