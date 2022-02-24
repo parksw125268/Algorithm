@@ -9,7 +9,6 @@ public class MyObjectSort implements Comparable<MyObjectSort>{
         this.b = b;
     }
 
-
     @Override
     public int compareTo(MyObjectSort os){
         double Value1 = (double)this.a/(double)this.b*200000;
