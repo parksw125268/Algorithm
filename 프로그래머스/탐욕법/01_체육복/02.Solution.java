@@ -2,6 +2,7 @@ class Solution {
     public int solution(int n, int[] lost, int[] reserve) {
         int answer = 0;
         int cnt = 0 ;
+
         int faker = 0;
 
         //잃어버린 애들을 오름차순으로 정렬을 한다. 버블정렬 (정렬 안해서 던져주는거 실화야~~???)
