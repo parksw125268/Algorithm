@@ -5,7 +5,7 @@ import java.util.*;
 public class Main {
     private static String[] item = {"a","b","c","d","e"};
     private static String[] selected = new String[3];//3개 고르기
-    public static void main(String[] args) {
+    public static void main(String[] args) { 
 
         rec_func(0, 0);
     }
