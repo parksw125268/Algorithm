@@ -9,7 +9,7 @@ public class MyHeap {
         if (heapList.get(childIdx) <= heapList.get(childIdx/2)){
             return true;
         }else{
-            return false; 
+            return  false; 
         }
     }
     private void setPosition(){
