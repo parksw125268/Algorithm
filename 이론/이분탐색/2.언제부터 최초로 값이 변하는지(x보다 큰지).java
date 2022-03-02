@@ -8,6 +8,7 @@ public class Main {
             arr[i] = (int)(Math.random()*100);
         }
         Arrays.sort(arr);
+
         System.out.println(Arrays.toString(arr));
         binarySearch(30);
     }
