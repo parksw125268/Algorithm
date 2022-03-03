@@ -14,7 +14,7 @@ public class MyObjectSort implements Comparable<MyObjectSort>{
         double Value1 = (double)this.a/(double)this.b*200000;
         double Value2 = (double)os.a/(double)os.b*200000;
 
-        return (int)Value1 - (int)Value2 ;//오름차순 정렬
+        return (int)Value1 -  (int)Value2 ;//오름차순 정렬
     }
 
     public static void main(String[] args) {
