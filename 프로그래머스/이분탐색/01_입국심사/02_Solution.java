@@ -7,6 +7,7 @@ class Solution {
         long answer = 0;
         int max = times[0];
         int min = 1;
+
         for(int i=1;i<times.length;i++){
             max = Math.max(max,times[i]);
         }
