@@ -8,7 +8,7 @@ class Solution {
             if(yellow%i == 0 ){
                 if ( ((i+1) + (yellow/i + 1))*2 == brown){
                     answer[0] = yellow/i+2;
-                    answer[1] = i+2;
+                    answer[1] = i+2; 
                 } 
             }
         }
