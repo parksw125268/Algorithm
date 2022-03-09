@@ -9,7 +9,7 @@ class Solution{
     }
 
     class Tree {
-        private Node head;
+        private Node  head;
         private int count;
         private int target;
 
