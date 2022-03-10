@@ -11,9 +11,9 @@ class Solution {
         for(int i=1;i<times.length;i++){
             max = Math.max(max,times[i]);
         }
-        long left = min;
+        long left = min; 
         long right = (long)max * n;
-        
+         
         while(left<=right){
             long mid = (left+right)/2;
             if(isAble(mid)){
