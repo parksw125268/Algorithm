@@ -15,6 +15,7 @@ class Solution {
         long right = (long)max * n;
          
         while(left<=right){
+
             long mid = (left+right)/2;
             if(isAble(mid)){
                 answer = mid;
