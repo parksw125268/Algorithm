@@ -13,6 +13,7 @@ class Solution {
             sortList = ms.sortFunc(sortList);
             answer[i] = sortList.get(commands[i][2]-1);
         }
+
         return answer;
     }
 
