@@ -50,6 +50,6 @@ public class N_Queen {
         N_Queen nq = new N_Queen();
         nq.solution(n,0,new ArrayList<Integer>());
         nq.printFunc();
-    }
 
+    }
 }
